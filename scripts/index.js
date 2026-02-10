@@ -47,8 +47,10 @@ const imagePopupModal = document.querySelector("#image-popup");
 const closeImagePopupModal = imagePopupModal.querySelector(".popup__close");
 const cardImagePopup = imagePopupModal.querySelector(".popup__image");
 const cardPopupCaption = imagePopupModal.querySelector(".popup__caption");
+const allModals = document.querySelectorAll(".popup");
 
 editProfileBtn.addEventListener("click", handleOpenEditModal);
+
 newCardBtn.addEventListener("click", () => {
   openModal(newCardModal);
 });
@@ -61,12 +63,35 @@ closeImagePopupModal.addEventListener("click", () => {
   closeModal(imagePopupModal);
 });
 
+closeEditProfileModal.addEventListener("click", () => {
+  closeModal(editPopupModal);
+});
+
+allModals.forEach((modal) => {
+  modal.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closeModal(event.currentTarget);
+    }
+  })
+});
+
+function handleEscBtn(event) {
+  if(event.key === "Escape"){
+    const openedModal = document.querySelector(".popup_is-opened");
+    if(openedModal){
+      closeModal(openedModal);
+    }
+  } 
+}
+
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
+  document.addEventListener("keydown", handleEscBtn);
 }
 
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", handleEscBtn);
 }
 
 function fillProfileForm() {
@@ -79,10 +104,6 @@ function handleOpenEditModal() {
   fillProfileForm();
 }
 
-closeEditProfileModal.addEventListener("click", () => {
-  closeModal(editPopupModal);
-});
-
 formElement.addEventListener("submit", handleProfileFormSubmit);
 
 function handleProfileFormSubmit(evt) {
@@ -92,10 +113,7 @@ function handleProfileFormSubmit(evt) {
   closeModal(editPopupModal);
 }
 
-function getCardElement(
-  name = "Lugar sem nome",
-  link = "images/placeholder.jpg",
-) {
+function getCardElement(name, link) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__title");
   const cardImage = cardElement.querySelector(".card__image");

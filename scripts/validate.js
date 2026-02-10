@@ -12,7 +12,11 @@ function formInputVerification(input) {
     } else {
       hideInputError(input);
     }
-  });
+    const elementForm = input.closest("form");
+    const formInputs = elementForm.querySelectorAll(".popup__input");
+    const formButton = elementForm.querySelector(".popup__button");
+    toggleButton(formInputs, formButton);
+  })
 }
 
 profileFormInputs.forEach((input) => {
