@@ -31,6 +31,12 @@
   cursor: pointer;
 }
 
+.popup__button:disabled {
+  background: #fff;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
 .popup__close {
   width: 35px;
   height: 35px;
