@@ -54,3 +54,15 @@ function toggleButton(inputList, buttonElement) {
     buttonElement.disabled = false;
   }
 }
+
+function resetForm (elementForm){
+  elementForm.reset();
+
+  const formInputs = elementForm.querySelectorAll(".popup__input");
+  formInputs.forEach((input)=>{
+    hideInputError(input);
+  }) 
+  
+  const button = elementForm.querySelector(".popup__button");
+  toggleButton(elementForm, button);
+}

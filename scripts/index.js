@@ -87,6 +87,10 @@ function handleEscBtn(event) {
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
   document.addEventListener("keydown", handleEscBtn);
+  const form = modal.querySelector("form");
+  if(form){
+    resetForm(form)
+  }
 }
 
 function closeModal(modal) {
